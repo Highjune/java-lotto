@@ -16,7 +16,7 @@ public class Record {
         return new EnumMap<>(rankMap);
     }
 
-    public static Record extractRecord(LottoBundle lottoBundle, WinNumber winNumber) {
+    public static Record extractRecord(LottoBundle lottoBundle,  WinNumber winNumber) {
         Map<Rank, Integer> rankMap = new EnumMap<>(Rank.class);
         List<Lotto> lottoList = lottoBundle.unfoldLottoBundle();
         for (Lotto lotto : lottoList) {
