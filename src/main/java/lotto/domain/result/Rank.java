@@ -1,54 +1,32 @@
 package lotto.domain.result;
 
 import java.util.Arrays;
+import java.util.function.BiPredicate;
 
 public enum Rank {
 
-    FIRST(6, 2_000_000_000),
-    SECOND(5, 30_000_000),
-    THIRD(5, 1_500_000),
-    FOURTH(4, 50_000),
-    FIFTH(3, 5_000),
-    MISS(0, 0)
-    ;
+    FIRST((count, isBonus) -> count == 6, 6, 2_000_000_000),
+    SECOND((count, isBonus) -> count == 5 && isBonus, 5, 30_000_000),
+    THIRD((count, isBonus) -> count == 5 && !isBonus, 5, 1_500_000),
+    FOURTH((count, isBonus) -> count == 4, 4, 50_000),
+    FIFTH((count, isBonus) -> count == 3, 3, 5_000),
+    MISS((count, isBonus) -> false, 0, 0);
 
-    private int matchingCount;
-    private int prize;
+    private final BiPredicate<Integer, Boolean> matcher;
+    private final int matchingCount;
+    private final int prize;
 
-    Rank(int matchingCount, int prize) {
+    Rank(BiPredicate<Integer, Boolean> matcher, int matchingCount, int prize) {
+        this.matcher = matcher;
         this.matchingCount = matchingCount;
         this.prize = prize;
     }
 
-    public static Rank find(MatchCount matchCount, boolean isBonusBall) {
+    public static Rank find(MatchCount matchCount, boolean isBonus) {
         return Arrays.stream(values())
-                .filter(rank -> support(rank, matchCount, isBonusBall))
+                .filter(rank -> rank.matcher.test(matchCount.value(), isBonus))
                 .findFirst()
-                .orElse(Rank.MISS);
-    }
-
-    private static boolean support(Rank rank, MatchCount matchCount, boolean isBonusBall) {
-        if (rank == Rank.FIRST) {
-            return matchCount.value() == 6;
-        }
-
-        if (rank == Rank.SECOND) {
-            return matchCount.value() == 5 && isBonusBall;
-        }
-
-        if (rank == Rank.THIRD) {
-            return matchCount.value() == 5 && !isBonusBall;
-        }
-
-        if (rank == Rank.FOURTH) {
-            return matchCount.value() == 4;
-        }
-
-        if (rank == Rank.FIFTH) {
-            return matchCount.value() == 3;
-        }
-
-        return false;
+                .orElse(MISS);
     }
 
     public int getMatchingCount() {
