@@ -10,16 +10,16 @@ public class LottoNumberTest {
     @DisplayName("캐싱처리한 로또번호의 객체는 서로 같은 객체다.")
     @Test
     public void cashing_sameObject() {
-        LottoNumber lottoNumber = LottoNumber.of("1");
-        Assertions.assertThat(LottoNumber.of(1)).isEqualTo(lottoNumber);
-        Assertions.assertThat(LottoNumber.of(1) == lottoNumber);
+        LottoNumber lottoNumber = LottoNumber.from("1");
+        Assertions.assertThat(LottoNumber.from(1)).isEqualTo(lottoNumber);
+        Assertions.assertThat(LottoNumber.from(1) == lottoNumber);
     }
 
     @DisplayName("로또번호는 1 ~ 45 사이의 숫자여야 한다.")
     @Test
     public void lottoNumber_RangeInBetween1And45_CreateSuccess() {
         int number = 45;
-        LottoNumber lottoNumber = LottoNumber.of(number);
+        LottoNumber lottoNumber = LottoNumber.from(number);
 
         Assertions.assertThat(lottoNumber.getNumber()).isEqualTo(45);
     }
@@ -29,7 +29,7 @@ public class LottoNumberTest {
     public void lottoNumber_RangeInBetween1And45_IfNotThrowException() {
         int number = 46;
         Assertions.assertThatIllegalArgumentException()
-                .isThrownBy(() -> LottoNumber.of(number));
+                .isThrownBy(() -> LottoNumber.from(number));
     }
 
     @DisplayName("숫자형태의 로또번호가 아니라면 예외를 던진다.")
@@ -37,7 +37,7 @@ public class LottoNumberTest {
     public void lottoNumber_NotNumericFormat_ThrowException() {
         String number = "a";
         Assertions.assertThatIllegalArgumentException()
-                .isThrownBy(() -> LottoNumber.of(number));
+                .isThrownBy(() -> LottoNumber.from(number));
     }
 
 }

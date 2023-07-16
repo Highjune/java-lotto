@@ -6,7 +6,7 @@ import lotto.domain.result.WinNumber;
 public class LottoCompany {
 
     public static WinNumber announce(String stringNumbers, String bonusWinNumber) {
-        return new WinNumber(LottoUtil.stringsToLotto(stringNumbers), LottoNumber.of(bonusWinNumber));
+        return new WinNumber(LottoUtil.stringsToLotto(stringNumbers), LottoNumber.from(bonusWinNumber));
     }
 
 }

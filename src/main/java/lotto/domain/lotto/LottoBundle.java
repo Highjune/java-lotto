@@ -38,7 +38,7 @@ public class LottoBundle {
 
     private Set<LottoNumber> makeLottoNumber(List<Integer> numberList) {
         return numberList.stream()
-                .map(number -> LottoNumber.of(number))
+                .map(number -> LottoNumber.from(number))
                 .collect(Collectors.toSet());
     }
 

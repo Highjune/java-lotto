@@ -10,11 +10,6 @@ public class LottoUtil {
 
     private static final String SPLIT_DELIMITER = ",";
 
-//    public static List<Integer> answerToIntegers(String stringNumbers) {
-//        return Arrays.stream(splitNumbers(stringNumbers))
-//                .map(stringNumber -> Integer.parseInt(stringNumber.trim()))
-//                .collect(Collectors.toList());
-//    }
     public static Lotto stringsToLotto(String stringNumbers) {
         List<Integer> integers = Arrays.stream(splitNumbers(stringNumbers))
                 .map(stringNumber -> Integer.parseInt(stringNumber.trim()))

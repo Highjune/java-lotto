@@ -23,7 +23,7 @@ public class Lotto {
     private static Set<LottoNumber> toSet(List<Integer> numbers) {
         Set<LottoNumber> lottoTicket = new HashSet<>();
         for (int number : numbers) {
-            lottoTicket.add(LottoNumber.of(number));
+            lottoTicket.add(LottoNumber.from(number));
         }
         return lottoTicket;
     }
